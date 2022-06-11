@@ -1,0 +1,15 @@
+Dear Team,\n\nWe are excited to announce that, due to our remarkable growth over the last 10 years, we are expanding!\n\nIn fact, we are opening a new store besides our office.\n\nWe invite you to celebrate with us during the big opening day on April 20.There will be many exciting surprises, including irresistible discounts.\n\nIf you want to make use of your opening day discount, you're welcome\n\nSee you there.\n\nRegards,
+Team XYZ
+
+
+const requestPrompt={
+    title:"Request",
+    slug:"request-prompt",
+    id:1,
+    maxTokens:250,
+    promptText:`
+This is a mail generator\n1.Subject: Vacation request for September, 10-15\nkeywords: Current Projects & Pending Tasks, Vacation Request\n\nDear, John Doe\nI would like to request vacation from Monday, September 9th till Friday, September 13th.I will make sure to complete all my current projects and pending tasks in advance before the vacation. Ravi and John will cover my responsibilities during my absence.\nLooking forward to your approval.\n\nSincerely,\nWilfred Almeida[Job title]\n&&&&Mail Sentiment: Neutral&&&&\n####\n\n2.\nSubject: Do you have student discounts for the Annual Coding Conference?\nkeywords: discount ,education,student ,coding,annual\n\nGreetings John Doe\nI would like to ask if you provide student discounts for tickets to the Annual Coding Conference.A full-time student at the University of Texas and very excited about your event, but unfortunately, the ticket price is too high for me. I would appreciate if you could offer me an educational discount.\nLooking forward to hearing from you!\n\nBest,\nWilfred Almeida &&&&Mail Sentiment: Negative&&&&\n####\n\n3 Subject: ${emailSubject}\nkeywords:${keywords}
+`
+}
+
+export default requestPrompt
