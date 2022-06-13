@@ -56,7 +56,7 @@ app.use(function(req, res, next) {
 });
 
 app.get("/",(req,res)=>{
-    res.end("Hello Hecker")
+    res.end("Hello Heckerr")
 })
 
 //Making the server
