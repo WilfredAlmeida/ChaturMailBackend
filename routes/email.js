@@ -5,6 +5,7 @@ const allPrompts = require("../prompts/masterPrompt")
 const openai = require("../config/openai");
 const GeneratedEmails = require("../models/GeneratedEmailModel");
 const authFunctions = require("../middleware/authFunctions");
+const GeneratedEmailModel = require("../models/GeneratedEmailModel");
 
 router.post("/generateEmail",
 authFunctions.authenticateUserToken,
@@ -108,10 +109,36 @@ authFunctions.authenticateUserToken,
         return res.status(SUCCESS).json({
             status: 1,
             message: "Data Fetched Successfully",
-            payload: emails
+            payload: emails.reverse()
         })
 
     }
+)
+
+router.post("/deleteGeneratedEmail",
+authFunctions.authenticateUserToken,
+async(req,res)=>{
+
+    var id = req.body.id || ""
+
+    if(id==undefined||id==null||id==""){
+        return res.status(INVALID_BODY).json({status:0,message: "Invalid id Value",payload:[]})
+    }
+
+    GeneratedEmails.deleteOne({_id:id}).then((r)=>{
+        console.table(r);
+
+        if(r.acknowledged&&r.deletedCount!=0){
+            return res.status(SUCCESS).json({status:1,message:"Email Deleted Successfully",payload:[r]})
+        }
+
+        return res.status(INVALID_BODY).json({status:0,message:"Invalid id Value",payload:[r]})
+
+    }).catch((e)=>{
+        return res.status(SERVER_ERROR).json({status:0,message:"Something went Wrong",payload:[e]})
+    })
+
+}
 )
 
 module.exports = router
