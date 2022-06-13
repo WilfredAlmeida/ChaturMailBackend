@@ -3,7 +3,7 @@ const express = require("express");
 const cors = require("cors");
 const db = require('./config/db')
 require('dotenv').config()
-const port = 4545
+const port = process.env.PORT||4545
 
 const admin = require('firebase-admin');
 // var serviceAccount = require("./config/serviceAccountKey.json");
@@ -54,6 +54,10 @@ app.use(function(req, res, next) {
     // Pass to next layer of middleware
     next();
 });
+
+app.get("/",(req,res)=>{
+    res.end("Hello Hecker")
+})
 
 //Making the server
 app.listen(port, async () => {
