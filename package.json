@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
+    "start-dev": "nodemon index.js",
     "hl":"heroku logs --tail --app email-generator-api"
   },
   "author": "Wilfred Almeida",

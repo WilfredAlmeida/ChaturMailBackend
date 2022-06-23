@@ -1,7 +1,21 @@
 const { SUCCESS, INVALID_BODY, SERVER_ERROR } = require("../utils/constants")
 const router = require("express").Router();
-const jwt = require("jsonwebtoken")
+const jwt = require("jsonwebtoken");
+const UserModel = require("../models/UserModel");
+const authFunctions = require("../middleware/authFunctions");
 require('dotenv').config()
+
+
+router.post("/getUserData",
+    authFunctions.authenticateUserToken,
+    async (req, res) => {
+        UserModel.findOne({ email: req.user.email }).then((usr) => {
+            return res.status(SUCCESS).json({ status: 1, message: "Data Fetched Successfully", payload: [usr] })
+        }).catch(e => {
+            return res.status(SERVER_ERROR).json({ status: 0, message: "Something went Wrong", payload: e })
+        })
+    }
+)
 
 
 router.post("/getJWTToken",
@@ -33,7 +47,46 @@ router.post("/getJWTToken",
                 uid: r.uid,
             }
 
-            jwt.sign(payload, process.env.JWT_KEY,{expiresIn:'30d'}, (err, token) => {
+            var usr = await UserModel.find({ email: r.email });
+
+            if (usr.length > 0 && usr[0].email === r.email) {
+
+                await UserModel.updateOne({ email: r.email }, {
+                    name: r.name,
+                    picture: r.picture,
+                    userId: r.user_id,
+                    email: r.email,
+                    uid: r.uid,
+                    authTime: r.auth_time,
+                    exp: r.exp,
+                    updatedOn: Date.now()
+                }).catch(e => {
+                    console.log(e)
+                    return res.status(SERVER_ERROR).json({ status: 0, message: "Something went Wrong", payload: e })
+                })
+
+            }
+            else {
+                var u = UserModel({
+                    usedTokens: 0,
+                    availableTokens: 1000,
+                    name: r.name,
+                    picture: r.picture,
+                    userId: r.user_id,
+                    email: r.email,
+                    uid: r.uid,
+                    authTime: r.auth_time,
+                    exp: r.exp,
+                    createdOn: Date.now()
+                })
+
+                await u.save().catch(e => {
+                    console.log(e)
+                    return res.status(SERVER_ERROR).json({ status: 0, message: "Something went Wrong", payload: e })
+                })
+            }
+
+            jwt.sign(payload, process.env.JWT_KEY, { expiresIn: '30d' }, (err, token) => {
                 if (err) {
                     console.log(err);
                     return res.status(SERVER_ERROR).json({ status: 0, message: err, payload: null })
