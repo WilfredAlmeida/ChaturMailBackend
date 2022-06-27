@@ -36,10 +36,16 @@ app.use(express.json())
 const emailRoute = require("./routes/email")
 const promptsRoute = require("./routes/prompt")
 const authRoute = require("./routes/user")
+const userRoute = require("./routes/user")
+const tutorialsRoute = require("./routes/tutorial")
+const miscRoute = require("./routes/misc")
 
 app.use("/email", emailRoute)
 app.use("/prompt", promptsRoute)
 app.use("/auth", authRoute)
+app.use("/user", userRoute)
+app.use("/tutorials", tutorialsRoute)
+app.use("/misc", miscRoute)
 
 app.use(function(req, res, next) {
     // Website you wish to allow to connect
