@@ -5,7 +5,7 @@ const allPrompts = require("../prompts/masterPrompt")
 const openai = require("../config/openai");
 const GeneratedEmails = require("../models/GeneratedEmailModel");
 const authFunctions = require("../middleware/authFunctions");
-const GeneratedEmailModel = require("../models/GeneratedEmailModel");
+const UserModel = require("../models/UserModel");
 
 router.post("/generateEmail",
 authFunctions.authenticateUserToken,
@@ -57,7 +57,18 @@ authFunctions.authenticateUserToken,
             createdOn: Math.floor(new Date().getTime() / 1000)
         })
 
-        generatedEmail.save().then(result => {
+        generatedEmail.save().then(async result => {
+
+            // await UserModel.updateOne({email:req.user.email},{$inc:{usedTokens:250}})
+            // await UserModel.updateOne({email:req.user.email},{$inc:{availableTokens:-250}})
+
+            new Promise(async(resolve,reject)=>{
+                await UserModel.updateOne({email:req.user.email},{$inc:{usedTokens:250}})
+            await UserModel.updateOne({email:req.user.email},{$inc:{availableTokens:-250}})
+            })
+
+            // await UserModel.updateOne({email:req.user.email},{$subtract:["$availableTokens",250]})
+
             return res.status(SUCCESS).json({
                 status: 1,
                 message: "Email Generated Successfully",
