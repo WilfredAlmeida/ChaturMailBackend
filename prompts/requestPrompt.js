@@ -13,7 +13,7 @@ class requestPrompt {
         
         this.shortDescription="An email to request something"
         this.iconUrl="https://img.icons8.com/external-kmg-design-detailed-outline-kmg-design/64/000000/external-avatar-design-thinking-kmg-design-detailed-outline-kmg-design.png"
-        this.description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+        this.description="An email to request something"
 
     }
 
