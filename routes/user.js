@@ -69,7 +69,7 @@ router.post("/getJWTToken",
             else {
                 var u = UserModel({
                     usedTokens: 0,
-                    availableTokens: 1000,
+                    availableTokens: 10000,
                     name: r.name,
                     picture: r.picture,
                     userId: r.user_id,
