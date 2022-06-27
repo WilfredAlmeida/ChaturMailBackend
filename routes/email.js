@@ -79,7 +79,7 @@ authFunctions.authenticateUserToken,
                     subject: emailSubject,
                     keywords: keywords,
                     generatedEmail: generatedEmailText,
-                    toEmailId: 'abc@abc.com',
+                    toEmailId: toEmail,
                     tokens: prompt.maxTokens,
                     createdOn: Math.floor(new Date().getTime() / 1000)
                 }]
