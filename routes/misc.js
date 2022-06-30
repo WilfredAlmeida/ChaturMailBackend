@@ -34,6 +34,7 @@ async(req,res)=>{
 
     var feedback = new FeedbackModel({
         userId:req.user.uid,
+        email:req.user.email,
         subject:subject,
         message:message
     })

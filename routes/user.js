@@ -2,6 +2,7 @@ const { SUCCESS, INVALID_BODY, SERVER_ERROR } = require("../utils/constants")
 const router = require("express").Router();
 const jwt = require("jsonwebtoken");
 const UserModel = require("../models/UserModel");
+const GeneratedEmails = require("../models/GeneratedEmailModel");
 const authFunctions = require("../middleware/authFunctions");
 require('dotenv').config()
 
@@ -101,6 +102,18 @@ router.post("/getJWTToken",
         }
 
     }
+)
+
+
+router.post("/deleteUser",
+authFunctions.authenticateUserToken,
+async(req,res)=>{
+
+    await UserModel.deleteOne({email:req.user.email})
+    await GeneratedEmails.deleteMany({email:req.user.email})
+
+    return res.status(SUCCESS).json({status:1,message:"Data Deleted Successfully",payload:null});
+}
 )
 
 /**
