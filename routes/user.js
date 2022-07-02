@@ -24,6 +24,8 @@ router.post("/getJWTToken",
 
         var email = req.body.email || ""
         var idToken = req.body.idToken || ""
+        var fcmToken = req.body.fcmToken || ""
+        var loginMethod = req.body.loginMethod || ""
 
         if (email == undefined || email == null || email == "" || !/\S+@\S+\.\S+/ig.test(email)) {
             return res.status(INVALID_BODY).json({ status: 0, message: "Invalid/Absent email Value" })
@@ -31,6 +33,13 @@ router.post("/getJWTToken",
 
         if (idToken == undefined || idToken == null || idToken == "") {
             return res.status(INVALID_BODY).json({ status: 0, message: "Invalid/Absent idToken Value" })
+        }
+
+        if (fcmToken == undefined || fcmToken == null || fcmToken == "") {
+            return res.status(INVALID_BODY).json({ status: 0, message: "Invalid/Absent fcmToken Value" })
+        }
+        if (loginMethod == undefined || loginMethod == null || loginMethod == "") {
+            return res.status(INVALID_BODY).json({ status: 0, message: "Invalid/Absent loginMethod Value" })
         }
 
 
@@ -60,6 +69,8 @@ router.post("/getJWTToken",
                     uid: r.uid,
                     authTime: r.auth_time,
                     exp: r.exp,
+                    fcmToken: fcmToken,
+                    loginMethod: loginMethod,
                     updatedOn: Date.now()
                 }).catch(e => {
                     console.log(e)
@@ -78,6 +89,8 @@ router.post("/getJWTToken",
                     uid: r.uid,
                     authTime: r.auth_time,
                     exp: r.exp,
+                    fcmToken: fcmToken,
+                    loginMethod: loginMethod,
                     createdOn: Date.now()
                 })
 

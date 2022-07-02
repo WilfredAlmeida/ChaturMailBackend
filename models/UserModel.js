@@ -33,6 +33,10 @@ const UserModelSchema = new Schema({
         type: String,
         required: true
     },
+    fcmToken:{
+        type: String,
+        required: true
+    },
     authTime:{
         type: Number,
         required: true
@@ -46,6 +50,11 @@ const UserModelSchema = new Schema({
         default: 0
     },
     deviceUid:{
+        type:String,
+        required:false,
+        default: null
+    },
+    loginMethod:{
         type:String,
         required:false,
         default: null
