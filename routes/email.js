@@ -63,12 +63,9 @@ authFunctions.authenticateUserToken,
             // await UserModel.updateOne({email:req.user.email},{$inc:{availableTokens:-250}})
 
             new Promise(async(resolve,reject)=>{
-                await UserModel.updateOne({email:req.user.email},{
-                    $inc:{usedTokens:250},
-                    $inc:{generatedEmailCount:1},
-                    $inc:{availableTokens:-250}
-                })
-            // await UserModel.updateOne({email:req.user.email},{$inc:{availableTokens:-250}})
+                await UserModel.updateOne({email:req.user.email},{$inc:{usedTokens:250}})
+            await UserModel.updateOne({email:req.user.email},{$inc:{availableTokens:-250}})
+            await UserModel.updateOne({email:req.user.email},{$inc:{generatedEmailCount:1}})
             })
 
             // await UserModel.updateOne({email:req.user.email},{$subtract:["$availableTokens",250]})
