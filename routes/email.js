@@ -65,6 +65,7 @@ authFunctions.authenticateUserToken,
             new Promise(async(resolve,reject)=>{
                 await UserModel.updateOne({email:req.user.email},{$inc:{usedTokens:250}})
             await UserModel.updateOne({email:req.user.email},{$inc:{availableTokens:-250}})
+            await UserModel.updateOne({email:req.user.email},{$inc:{generatedEmailCount:1}})
             })
 
             // await UserModel.updateOne({email:req.user.email},{$subtract:["$availableTokens",250]})
@@ -79,7 +80,7 @@ authFunctions.authenticateUserToken,
                     subject: emailSubject,
                     keywords: keywords,
                     generatedEmail: generatedEmailText,
-                    toEmailId: 'abc@abc.com',
+                    toEmailId: toEmail,
                     tokens: prompt.maxTokens,
                     createdOn: Math.floor(new Date().getTime() / 1000)
                 }]

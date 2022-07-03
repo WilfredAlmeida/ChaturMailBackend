@@ -2,6 +2,7 @@ const { SUCCESS, INVALID_BODY, SERVER_ERROR } = require("../utils/constants")
 const router = require("express").Router();
 const jwt = require("jsonwebtoken");
 const UserModel = require("../models/UserModel");
+const GeneratedEmails = require("../models/GeneratedEmailModel");
 const authFunctions = require("../middleware/authFunctions");
 require('dotenv').config()
 
@@ -23,6 +24,8 @@ router.post("/getJWTToken",
 
         var email = req.body.email || ""
         var idToken = req.body.idToken || ""
+        var fcmToken = req.body.fcmToken || ""
+        var loginMethod = req.body.loginMethod || ""
 
         if (email == undefined || email == null || email == "" || !/\S+@\S+\.\S+/ig.test(email)) {
             return res.status(INVALID_BODY).json({ status: 0, message: "Invalid/Absent email Value" })
@@ -30,6 +33,13 @@ router.post("/getJWTToken",
 
         if (idToken == undefined || idToken == null || idToken == "") {
             return res.status(INVALID_BODY).json({ status: 0, message: "Invalid/Absent idToken Value" })
+        }
+
+        if (fcmToken == undefined || fcmToken == null || fcmToken == "") {
+            return res.status(INVALID_BODY).json({ status: 0, message: "Invalid/Absent fcmToken Value" })
+        }
+        if (loginMethod == undefined || loginMethod == null || loginMethod == "") {
+            return res.status(INVALID_BODY).json({ status: 0, message: "Invalid/Absent loginMethod Value" })
         }
 
 
@@ -59,6 +69,8 @@ router.post("/getJWTToken",
                     uid: r.uid,
                     authTime: r.auth_time,
                     exp: r.exp,
+                    fcmToken: fcmToken,
+                    loginMethod: loginMethod,
                     updatedOn: Date.now()
                 }).catch(e => {
                     console.log(e)
@@ -77,6 +89,8 @@ router.post("/getJWTToken",
                     uid: r.uid,
                     authTime: r.auth_time,
                     exp: r.exp,
+                    fcmToken: fcmToken,
+                    loginMethod: loginMethod,
                     createdOn: Date.now()
                 })
 
@@ -101,6 +115,18 @@ router.post("/getJWTToken",
         }
 
     }
+)
+
+
+router.post("/deleteUser",
+authFunctions.authenticateUserToken,
+async(req,res)=>{
+
+    await UserModel.deleteOne({email:req.user.email})
+    await GeneratedEmails.deleteMany({email:req.user.email})
+
+    return res.status(SUCCESS).json({status:1,message:"Data Deleted Successfully",payload:null});
+}
 )
 
 /**
