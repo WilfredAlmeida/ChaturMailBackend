@@ -12,3 +12,5 @@ module.exports.connect = async () => {
         })
         .catch((err) => console.log(err));
 }
+
+module.exports.redisDb = null

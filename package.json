@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node index.js",
     "start-dev": "nodemon index.js",
-    "hl":"heroku logs --tail --app email-generator-api"
+    "hl": "heroku logs --tail --app email-generator-api"
   },
   "author": "Wilfred Almeida",
   "license": "ISC",
@@ -20,7 +20,8 @@
     "mongoose": "^6.3.0",
     "openai": "^2.0.5",
     "passport": "^0.6.0",
-    "passport-jwt": "^4.0.0"
+    "passport-jwt": "^4.0.0",
+    "redis": "^4.2.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"

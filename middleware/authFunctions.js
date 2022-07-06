@@ -1,6 +1,9 @@
 const ExtractJwt = require("passport-jwt").ExtractJwt;
 require("dotenv").config();
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
+const UserModel = require("../models/UserModel");
+const {redisDb} = require("../config/db");
+const { setRedisAsync, setRedisAsyncEx, getRedisAsync } = require("../config/redisConfig");
 
 const opts = {};
 const extractedJwtToken = ExtractJwt.fromAuthHeaderAsBearerToken();
@@ -17,6 +20,19 @@ async function authenticateUserToken(req, res, next) {
 	}
 
     req.user = jwtPayload.payload
+
+	const cachedUserUid = await getRedisAsync(req.user.email)
+	if(cachedUserUid!=null) {
+		next()
+		return
+	}
+
+	var usr = await UserModel.findOne({email:req.user.email})
+	if(usr==null){
+		return res.status(401).json({ status: 0, message: "Unauthorized" })
+	}
+
+	await setRedisAsyncEx(req.user.email,3600,req.user.uid)
 
 	next()
 }

@@ -2,8 +2,10 @@ const mongoose = require("mongoose");
 const express = require("express");
 const cors = require("cors");
 const db = require('./config/db')
+const redis = require("redis")
 require('dotenv').config()
 const port = process.env.PORT||4545
+const redisPort = process.env.REDIS_PORT || 6379
 
 const admin = require('firebase-admin');
 // var serviceAccount = require("./config/serviceAccountKey.json");
@@ -69,5 +71,6 @@ app.get("/",(req,res)=>{
 app.listen(port, async () => {
     console.log("Listening on port " + port);
     await db.connect();//Connecting to mongodb
+    db.redisDb = redis.createClient(redisPort)
 });
 
