@@ -23,6 +23,7 @@ async function authenticateUserToken(req, res, next) {
 
 	const cachedUserUid = await getRedisAsync(req.user.email)
 	if(cachedUserUid!=null) {
+		console.log("hit");
 		next()
 		return
 	}
@@ -33,6 +34,7 @@ async function authenticateUserToken(req, res, next) {
 	}
 
 	await setRedisAsyncEx(req.user.email,3600,req.user.uid)
+	console.log("miss");
 
 	next()
 }

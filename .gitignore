@@ -3,3 +3,4 @@ node_modules
 serviceAccountKey.json
 W.txt
 .vscode
+.env-docker

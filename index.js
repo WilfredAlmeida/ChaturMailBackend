@@ -70,7 +70,8 @@ app.get("/",(req,res)=>{
 //Making the server
 app.listen(port, async () => {
     console.log("Listening on port " + port);
+    console.log(process.env.REDIS_IP);
+    console.log(process.env.OS_ENV);
     await db.connect();//Connecting to mongodb
-    db.redisDb = redis.createClient(redisPort)
 });
 

@@ -1,13 +1,11 @@
 const redis = require("redis")
-require('dotenv').config()
-const redisPort = process.env.REDIS_PORT || 6379
-const redisClient = redis.createClient(redisPort);
-// module.exports.redisClient = redis.createClient(redisPort);
+require('dotenv').config();
+const redisPort = process.env.REDIS_PORT || 6379;
 
-(async () => {
-   redisClient.on('error', (err) => console.log(err));
-   await redisClient.connect();
-})();
+const redisClient = process.env.OS_ENV == "DOCKER" ? redis.createClient({
+   host: process.env.REDIS_IP,
+   port: redisPort
+}) : redis.createClient(redisPort);
 
 module.exports.getRedisAsync = async (key) => {
    const value = await redisClient.get(key);
@@ -21,8 +19,9 @@ module.exports.setRedisAsyncEx = async (key, ex, value) => {
    await redisClient.setEx(key, ex, value);
 };
 
-// module.exports= const onConnectCallback = (callback) => {
-//    redisClient.on('connect', () => {
-//    callback();
-//   });
-// };
+module.exports.onConnectCallback = (callback) => {
+   redisClient.on('connect', () => {
+      // callback();
+      console.log("Connected to Redis");
+   });
+};
