@@ -1,3 +1,37 @@
-# email-generator-backend
 
-You need .env and config/serviceAccountKey.json to run
+## Run Locally
+
+`.env` file is needed with following config:
+
+`OPENAI_API_KEY`  
+`DB_URI`  
+`JWT_KEY`  
+`TYPE`  
+`PROJECT_ID`  
+`PRIVATE_KEY_ID`  
+`PRIVATE_KEY`  
+`CLIENT_EMAIL`  
+`CLIENT_ID`  
+`AUTH_URI`  
+`TOKEN_URI`  
+`AUTH_PROVIDER_X509_CERT_URL`  
+`CLIENT_X509_CERT_URL`  
+`OS_ENV`  
+
+`.env-docker`:
+
+`OPENAI_API_KEY`  
+`DB_URI`  
+`JWT_KEY`  
+`TYPE`  
+`PROJECT_ID`  
+`PRIVATE_KEY_ID`  
+`PRIVATE_KEY`  
+`CLIENT_EMAIL`  
+`CLIENT_ID`  
+`AUTH_URI`  
+`TOKEN_URI`  
+`AUTH_PROVIDER_X509_CERT_URL`  
+`CLIENT_X509_CERT_URL`  
+`REDIS_IP`  
+`REDIS_PORT`  
