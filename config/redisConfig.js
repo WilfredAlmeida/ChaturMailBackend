@@ -1,3 +1,5 @@
+//Connects to redis and provides async functions to interact with it.
+
 const redis = require("redis")
 require('dotenv').config();
 const redisPort = process.env.REDIS_PORT || 6379;

@@ -12,7 +12,19 @@ opts.jwtFromRequest = extractedJwtToken;
 const extractedSecretOrKey = process.env.JWT_KEY;
 opts.secretOrKey = extractedSecretOrKey;
 
+//Read this file from master branch first
+
+/*
+Flow here is:
+
+1. Verify JWT
+2. Check for user in cache, if found next(), else move ahead
+3. Check for user in MongoDB, if found save in cache and next(), else return unathorized
+
+*/
 async function authenticateUserToken(req, res, next) {
+
+	//Jwt check
 	var jwtPayload = await authJWT(req);
 
 	if (jwtPayload.status == 0) {
@@ -21,6 +33,7 @@ async function authenticateUserToken(req, res, next) {
 
     req.user = jwtPayload.payload
 
+	//Cache check
 	const cachedUserUid = await getRedisAsync(req.user.email)
 	if(cachedUserUid!=null) {
 		console.log("hit");
@@ -28,6 +41,7 @@ async function authenticateUserToken(req, res, next) {
 		return
 	}
 
+	//MongoDB Check
 	var usr = await UserModel.findOne({email:req.user.email})
 	if(usr==null){
 		return res.status(401).json({ status: 0, message: "Unauthorized" })
