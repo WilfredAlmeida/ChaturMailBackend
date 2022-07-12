@@ -1,3 +1,5 @@
+//Handles user related stuff
+
 const { SUCCESS, INVALID_BODY, SERVER_ERROR } = require("../utils/constants")
 const router = require("express").Router();
 const jwt = require("jsonwebtoken");
@@ -6,7 +8,7 @@ const GeneratedEmails = require("../models/GeneratedEmailModel");
 const authFunctions = require("../middleware/authFunctions");
 require('dotenv').config()
 
-
+//Return data of logged in user from database
 router.post("/getUserData",
     authFunctions.authenticateUserToken,
     async (req, res) => {
@@ -18,13 +20,15 @@ router.post("/getUserData",
     }
 )
 
+//Called after login in flutter app, verifies user, stores it's data to sb, generates and returns JWT Token
 
+//Login provider is Google Firebase and is accessed using it's admin sdk
 router.post("/getJWTToken",
     async (req, res) => {
 
         var email = req.body.email || ""
         var idToken = req.body.idToken || ""
-        var fcmToken = req.body.fcmToken || ""
+        var fcmToken = req.body.fcmToken || "" //Needed for notifications
         var loginMethod = req.body.loginMethod || ""
 
         if (email == undefined || email == null || email == "" || !/\S+@\S+\.\S+/ig.test(email)) {
@@ -117,7 +121,7 @@ router.post("/getJWTToken",
     }
 )
 
-
+//Deletes user from database
 router.post("/deleteUser",
 authFunctions.authenticateUserToken,
 async(req,res)=>{

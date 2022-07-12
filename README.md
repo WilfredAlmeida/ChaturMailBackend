@@ -63,6 +63,12 @@ Then there are `NodeJS` containers that are connected to it. These containers ar
 A common database among pods is complicated to setup so each pod has it's own `Redis` container running, this works fine with the current use of the caching needs however might need change in future.
 
 
+## Security
+
+`SSL` is used to encrypt all communication.
+
+**ToDo**: Implement `RSA` encryption on API body
+
 ## Load Balancing
 
 There is no Load Balancing on `Heroku`.
@@ -115,6 +121,13 @@ Authentication is achieved in 2 stages:
 To solve this user details are cached in `Redis`.
 
 **Note**: Databse validation is not available on `heroku`.
+
+
+## Security
+
+`SSL` is used to encrypt all communication.
+
+**ToDo**: Implement `RSA` encryption on API body
 
 ## Email Generation
 
