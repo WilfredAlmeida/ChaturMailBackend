@@ -4,6 +4,7 @@ const tutorials = require("../tutorials/masterTutorial");
 
 const router = require("express").Router();
 
+//Fetch and return all tutorials from database
 router.post("/getAllTutorials",
 authFunctions.authenticateUserToken,
 async (req, res) => {

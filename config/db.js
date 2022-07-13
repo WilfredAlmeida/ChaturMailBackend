@@ -1,3 +1,5 @@
+//Mongodb config
+
 const mongoose = require("mongoose");
 
 module.exports.connect = async () => {

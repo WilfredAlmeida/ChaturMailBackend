@@ -4,6 +4,8 @@ const authFunctions = require("../middleware/authFunctions");
 const router = require("express").Router();
 const allPrompts = require("../prompts/masterPrompt")
 
+
+//Fetch and return all prompts from database
 router.post("/getAllPrompts",
 authFunctions.authenticateUserToken,
     async (req, res) => {

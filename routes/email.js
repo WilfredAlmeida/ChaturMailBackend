@@ -1,3 +1,5 @@
+//This file is main email handling
+
 const { SUCCESS,INVALID_BODY,SERVER_ERROR}=require("../utils/constants")
 
 const router = require("express").Router();
@@ -16,6 +18,7 @@ authFunctions.authenticateUserToken,
         const promptId = req.body.promptId
         const toEmail = req.body.toEmail
 
+        //Verify body
         if (
             emailSubject == undefined || emailSubject == null || emailSubject == "" ||
             keywords == undefined || keywords == null || keywords == "" ||
@@ -25,12 +28,15 @@ authFunctions.authenticateUserToken,
             return res.status(INVALID_BODY).json({ status: 0, message: "Subject, To Email, Keywords and Prompt Id are required", payload: null })
         }
 
+        //Get prompt to feed to model
         var prompt = (allPrompts.filter((e) => e.prompt.id == promptId))[0].prompt
 
+        //Set subject & keywords to prompt
         prompt.setSubjectAndKeywords(emailSubject, keywords)
 
         console.log(prompt.promptText);
 
+        //Generate email
         const completion = await openai.createCompletion("text-curie-001", {
             prompt: prompt.promptText,
             temperature: 0.23,
@@ -43,9 +49,7 @@ authFunctions.authenticateUserToken,
 
         var generatedEmailText = completion.data.choices[0].text;
 
-
-        // var generatedEmailText = "Hi"
-
+        //save generated email to database and send response
         var generatedEmail = new GeneratedEmails({
             userId: req.user.uid,
             promptId: prompt.id,
@@ -93,6 +97,7 @@ authFunctions.authenticateUserToken,
     }
 )
 
+//Get past generated emails from database, might get filter in future
 router.post("/getGeneratedEmails",
 authFunctions.authenticateUserToken,
     async (req, res) => {
@@ -127,6 +132,7 @@ authFunctions.authenticateUserToken,
     }
 )
 
+//Delete a generayed email from future
 router.post("/deleteGeneratedEmail",
 authFunctions.authenticateUserToken,
 async(req,res)=>{
