@@ -11,7 +11,7 @@ class jobApplicationPrompt {
         this.updatedOn=1658382267
         
         this.shortDescription="An email for job application"
-        this.iconUrl="https://img.icons8.com/external-sbts2018-lineal-color-sbts2018/58/000000/external-speaker-ecommerce-basic-1-sbts2018-lineal-color-sbts2018.png"
+        this.iconUrl="https://img.icons8.com/ios-glyphs/30/000000/find-matching-job.png"
         this.description="An email for job application as a fresher/experienced. Use this prompt to apply for a job position as a fresher or experienced personnel. In the Subject, mention the role you're applying for.\nIn the keywords write about your academices, internship/job experiences acheievements, projects."
 
     }
