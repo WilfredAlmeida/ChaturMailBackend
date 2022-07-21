@@ -1,3 +1,17 @@
+[1. Introduction](#chaturmail-ai-email-generator-backend)  
+[2. Branches](#branches)  
+[3. Deployment](#deployment)  
+[4. Caching](#caching)    
+[5. Load Balancing](#load-balancing)  
+[6. Database](#database)  
+[7. API Flow](#api-flow)  
+[8. Authentication](#authentication)  
+[9. Security](#security)  
+[10. Email Generation](#email-generation)  
+[11. Directories Explained](#directories-explained)  
+[12. Run Locally](#run-locally)  
+[13. Tech Stack](#tech-stack)  
+[14. Authors](#authors)    
 
 # ChaturMail: AI Email Generator Backend
 
@@ -61,13 +75,6 @@ Then there are `NodeJS` containers that are connected to it. These containers ar
 `Kubernetes` Pods are auto scaled and managed.  
 
 A common database among pods is complicated to setup so each pod has it's own `Redis` container running, this works fine with the current use of the caching needs however might need change in future.
-
-
-## Security
-
-`SSL` is used to encrypt all communication.
-
-**ToDo**: Implement `RSA` encryption on API body
 
 ## Load Balancing
 
@@ -177,6 +184,10 @@ Might have both running in conjunction.
 `OPENAI_API_KEY`  
 `DB_URI`  
 `JWT_KEY`  
+
+From Firebase Service Account:  
+
+
 `TYPE`  
 `PROJECT_ID`  
 `PRIVATE_KEY_ID`  
@@ -187,6 +198,9 @@ Might have both running in conjunction.
 `TOKEN_URI`  
 `AUTH_PROVIDER_X509_CERT_URL`  
 `CLIENT_X509_CERT_URL`  
+
+
+For Docker:  
 `OS_ENV`  
 
 `.env-docker`:
@@ -194,6 +208,9 @@ Might have both running in conjunction.
 `OPENAI_API_KEY`  
 `DB_URI`  
 `JWT_KEY`  
+
+From Firebase Service Account:  
+
 `TYPE`  
 `PROJECT_ID`  
 `PRIVATE_KEY_ID`  
@@ -204,5 +221,27 @@ Might have both running in conjunction.
 `TOKEN_URI`  
 `AUTH_PROVIDER_X509_CERT_URL`  
 `CLIENT_X509_CERT_URL`  
+
+For Docker:  
+
 `REDIS_IP`  
 `REDIS_PORT`  
+
+
+## Tech Stack
+
+**Client:** Flutter, Firebase
+
+**Server:** Node, Express, Docker, NGINX, Kubernetes
+
+
+Flutter 3.0.4 • channel stable • https://github.com/flutter/flutter.git  
+Framework • revision 85684f9300
+Engine • revision 6ba2af10bb  
+Tools • Dart 2.17.5 • DevTools 2.12.2
+
+Node 16.4.0
+## Authors
+
+- [Wilfred Almeida](http://wilfredalmeida.com)
+
