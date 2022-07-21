@@ -2,8 +2,10 @@
 
 const requestPrompt = require("./requestPrompt")
 const announcementPrompt = require("./announcementPrompt")
+const jobApplicationPrompt = require("./jobApplicationPrompt")
 
 const allPrompts = [
+    { prompt: new jobApplicationPrompt() },
     { prompt: new requestPrompt() },
     { prompt: new announcementPrompt() },
 ]
