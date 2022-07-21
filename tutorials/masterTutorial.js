@@ -25,9 +25,9 @@ var tutorials=[{
   updatedOn:1656231558
 },
 {
-  title:"How to take generated email from SmartMail to your email app?",
+  title:"How to take generated email from ChaturMail to your email app?",
   htmlContent:`<div>
-  <h2 style="color:white; text-align:center">How to take generated email from SmartMail to your email app?</h2>
+  <h2 style="color:white; text-align:center">How to take generated email from ChaturMail to your email app?</h2>
   <p style="color:white; font-size:18px;text-align:justify">You can click the email button to launch your email app or you can copy the email text too</p>
 </div>`,
   updatedOn:1656231558
