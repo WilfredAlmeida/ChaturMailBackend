@@ -15,6 +15,11 @@
 
 # ChaturMail: AI Email Generator Backend
 
+
+![EmailGeneratorBackend](https://user-images.githubusercontent.com/60785452/201935651-0f0cba93-c328-473e-a9f2-954459670e9e.png)
+
+
+
 ChaturMail is a an AI Email Generator application that generates emails based on Subject and Keywords provided by the user.
 
 The application has premade prompts/templates for emails like Request Email, Announcement Email, Intern Application Email, Job Search Email and many more to ease out the process of generation for the user.
@@ -55,8 +60,19 @@ It is always from the `master` repo which upon merger from `stage` shows up in h
 Due to this initial API call takes upto `8` seconds to respond
 
 
-### Custom CI/CD
-The `docker` branch is being watched by CI/CD using `Kubernetes`.
+### Custom CI/CD on VPS  
+
+The VPS is a Debian 11 Server with 4 Threads Intel Xeon Processor, 8GB RAM & 170GB Server Grade SSD Storage.
+
+![CloudArchitecture](https://user-images.githubusercontent.com/60785452/201935263-acd5cd87-c1a3-4c97-8c8c-59e38e2c0b13.png)
+
+The `docker` branch is being watched by CI/CD using ArgoCD. A push to this branch triggers ArgoCD to pull the latest commit, build and deploy the application.  
+
+The `docker` images are hosted on self hosting service `harbor`. `harbor` is deployed as a kubernetes cluster on the server and images are built and pushed there.  
+
+`kubernetes` pulls the images from `harbor` registry and deploys them.
+
+After making a push, the changes go live in about `~300secs`
 
 The connections to the server are reverse proxied via `NGINX` to the appropriate service.
 
