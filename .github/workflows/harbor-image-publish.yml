@@ -12,5 +12,5 @@ jobs:
     - name: BuildAndPushImageOnHarbor
       run: |
         docker build ./ -t hub.wilfredalmeida.com/email-generator/email-gen-img:${{ github.run_number }}
-        docker login hub.wilfredalmeida.com -u ${{ secrets.HARBOR_USERNAME }} -p ${{ secrets.HARBOR_PASSWORD }}
+        docker login https://hub.wilfredalmeida.com -u ${{ secrets.HARBOR_USERNAME }} -p ${{ secrets.HARBOR_PASSWORD }}
         docker push hub.wilfredalmeida.com/email-generator/email-gen-img:${{ github.run_number }}
