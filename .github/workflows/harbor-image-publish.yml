@@ -8,7 +8,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@2
+    - uses: actions/checkout@v2
     - name: BuildAndPushImageOnHarbor
       run: |
         docker build ./ -t hub.wilfredalmeida.com/email-generator/email-gen-img:${{ github.run_number }}
