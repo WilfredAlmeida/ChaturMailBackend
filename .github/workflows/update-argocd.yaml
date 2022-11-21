@@ -1,0 +1,23 @@
+name: UpdateYamlFile
+
+on:
+  push:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Clone Repository
+      uses: GuillaumeFalourd/clone-github-repo-action@v2
+      with:
+        owner: 'WilfredAlmeida'
+        repository: 'argocd-test-configs'
+        access-token: ${{ secrets.ARGOCD_CONFIGS_REPO_ACCESS_TOKEN }}
+      - name: Update values.yaml
+        uses: fjogeleit/yaml-update-action@main
+        with:
+          valueFile: 'argocd-test-configs/node-pod.yaml'
+          propertyPath: 'spec.template.spec.containers.image'
+          value: 'hub.wilfredalmeida.com/email-generator/email-gen-img:7'
+          commitChange: true
