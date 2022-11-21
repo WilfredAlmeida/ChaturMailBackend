@@ -20,9 +20,9 @@ jobs:
         commitChange: false
     - name: Push to Repo
       run: |
+        git config --global user.name "${{secrets.USERNAME_GITHUB}}"
+        git config --global user.email "${{secrets.EMAIL_GITHUB}}"
         cd argocd-test-configs
         git add .
         git commit -m "Updated by GitHub Actions"
-        git config --global user.name "${{secrets.USERNAME_GITHUB}}"
-        git config --global user.email "${{secrets.EMAIL_GITHUB}}"
         git push https://${{secrets.USERNAME_GITHUB}}:${{secrets.ARGOCD_CONFIGS_REPO_ACCESS_TOKEN}}@github.com/WilfredAlmeida/argocd-test-configs --all
