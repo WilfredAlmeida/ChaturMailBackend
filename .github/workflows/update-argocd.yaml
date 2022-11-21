@@ -9,11 +9,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Clone Repository
-      uses: GuillaumeFalourd/clone-github-repo-action@v2
-      with:
-        owner: 'WilfredAlmeida'
-        repository: 'argocd-test-configs'
-        access-token: ${{ secrets.ARGOCD_CONFIGS_REPO_ACCESS_TOKEN }}
+      run: |
+        git clone https://WilfredAlmeida:${{secrets.ARGOCD_CONFIGS_REPO_ACCESS_TOKEN}}github.com/WilfredAlmeida/argocd-test-configs
     - name: Update values.yaml
       uses: fjogeleit/yaml-update-action@main
       with:
