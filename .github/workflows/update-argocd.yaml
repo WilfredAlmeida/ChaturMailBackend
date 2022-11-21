@@ -23,4 +23,4 @@ jobs:
         cd argocd-test-configs
         git add .
         git commit -m "Updated by GitHub Actions"
-        git push origin master
+        git push https://WilfredAlmeida:${{secrets.ARGOCD_CONFIGS_REPO_ACCESS_TOKEN}}@github.com/WilfredAlmeida/argocd-test-configs --all
