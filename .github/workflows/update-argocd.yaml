@@ -10,7 +10,7 @@ jobs:
     steps:
     - name: Clone Repository
       run: |
-        git clone https://WilfredAlmeida:${{secrets.ARGOCD_CONFIGS_REPO_ACCESS_TOKEN}}github.com/WilfredAlmeida/argocd-test-configs
+        git clone https://WilfredAlmeida:${{secrets.ARGOCD_CONFIGS_REPO_ACCESS_TOKEN}}@github.com/WilfredAlmeida/argocd-test-configs
     - name: Update values.yaml
       uses: fjogeleit/yaml-update-action@main
       with:
