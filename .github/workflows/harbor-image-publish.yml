@@ -1,0 +1,16 @@
+name: BuildAndPushImageOnHarbor
+
+on:
+  push:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@2
+    - name: BuildAndPushImageOnHarbor
+      run: |
+        docker build ./ -t hub.wilfredalmeida.com/email-generator/email-gen-img:${{ github.run_number }}
+        docker login hub.wilfredalmeida.com -u ${{ secrets.HARBOR_USERNAME }} -p ${{ secrets.HARBOR_PASSWORD }}
+        docker push hub.wilfredalmeida.com/email-generator/email-gen-img:${{ github.run_number }}
