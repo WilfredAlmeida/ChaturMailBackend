@@ -17,4 +17,10 @@ jobs:
         valueFile: 'argocd-test-configs/node-pod.yaml'
         propertyPath: 'spec.template.spec.containers.image'
         value: 'hub.wilfredalmeida.com/email-generator/email-gen-img:7'
-        commitChange: true
+        commitChange: false
+    - name: Push to Repo
+      run: |
+        cd argocd-test-configs
+        git add .
+        git commit -m "Updated by GitHub Actions"
+        git push origin master
