@@ -1,7 +1,7 @@
 name: BuildAndPushImageOnHarbor
 
 on:
-  push:
+  pull:
     branches: [ "master" ]
 
 jobs:
