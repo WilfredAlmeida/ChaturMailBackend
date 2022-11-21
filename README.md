@@ -64,15 +64,19 @@ Due to this initial API call takes upto `8` seconds to respond
 
 The VPS is a Debian 11 Server with 4 Threads Intel Xeon Processor, 8GB RAM & 170GB Server Grade SSD Storage.
 
-![CloudArchitecture](https://user-images.githubusercontent.com/60785452/201935263-acd5cd87-c1a3-4c97-8c8c-59e38e2c0b13.png)
+![CloudArchitecture](https://user-images.githubusercontent.com/60785452/203073325-14f56ba4-dafc-4792-b42e-d64341dfece1.png)
 
-The `docker` branch is being watched by CI/CD using ArgoCD. A push to this branch triggers ArgoCD to pull the latest commit, build and deploy the application.  
+The `master` branch has 2 GitHub actions as follows:    
+- Build `docker` image and push it to `Harbor`
+- Update YAML configs watched by ArgoCD to trigger a deployment  
 
-The `docker` images are hosted on self hosting service `harbor`. `harbor` is deployed as a kubernetes cluster on the server and images are built and pushed there.  
+On commit/merge to the `master` branch, a GitHub action builds `docker` image and uploads it to self hosted registry `harbor` on the VPS.  
 
-`kubernetes` pulls the images from `harbor` registry and deploys them.
+Another action updates the image details in YAML config being watched by ArgoCD. A sync is triggerd in ArgoCD which initiates a deploy process on the VPS.  
 
-After making a push, the changes go live in about `~300secs`
+The image is pulled locally from Harbor by Kubernetes and new containers are deployed.  
+
+**Note**: The ArgoCD config YAML files repository is not public since it contains `env` secrets.  
 
 The connections to the server are reverse proxied via `NGINX` to the appropriate service.
 
