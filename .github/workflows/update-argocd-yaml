@@ -20,4 +20,4 @@ jobs:
           valueFile: 'argocd-test-configs/node-pod.yaml'
           propertyPath: 'spec.template.spec.containers.image'
           value: 'hub.wilfredalmeida.com/email-generator/email-gen-img:6'
-          commitChange: false
+          commitChange: true
