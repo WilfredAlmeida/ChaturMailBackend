@@ -12,7 +12,9 @@ jobs:
       run: |
         git clone https://WilfredAlmeida:${{secrets.ARGOCD_CONFIGS_REPO_ACCESS_TOKEN}}@github.com/WilfredAlmeida/argocd-test-configs
     - name: Install yq
-      run: sudo apt-get install yq
+      run: |
+        sudo wget -qO /usr/local/bin/yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64
+        sudo chmod a+x /usr/local/bin/yq
     - name: Update YAML File
       run: |
         yq 'spec.template.spec.containers.image = hub.wilfredalmeida.com/email-generator/email-gen-img:7' 'argocd-test-configs/node-pod.yaml'
